@@ -25,25 +25,33 @@ function addR() {
 
 // Add a column
 function addC() {
-  if(numCols === 0){ // if no cols
-    grid.appendChild(document.createElement("tr").)appendChild(document.createElement("td")).onclick = myOnClick;
+  if (numCols === 0 && numRows === 0) {
+    grid
+      .appendChild(document.createElement("tr"))
+      .appendChild(document.createElement("td")).onclick = myOnClick;
 
-    numCols++;
     numRows++;
-
-
-  }else{
-    for( let i = 0,i<numRows;i++){
-      grid.rows[i].appendChild(document.createElement("td")).onclick = myOnClick;
+    numCols++;
+  } else {
+    for (let i = 0; i < numRows; i++) {
+      grid.rows[i].appendChild(document.createElement("td")).onclick =
+        myOnClick;
     }
     numCols++;
   }
-
 }
 
 // Remove a row
 function removeR() {
-  alert("Clicked Remove Row"); // Replace this line with your code.
+  if (numRows === 0) {
+    return 0;
+  }
+  grid.removeChild(grid.lastElementChild);
+  numRows--;
+
+  if (numRows === 0) {
+    numCols = 0;
+  }
 }
 
 // Remove a column
