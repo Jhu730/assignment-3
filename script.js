@@ -44,6 +44,7 @@ function addC() {
 // Remove a row
 function removeR() {
   if (numRows === 0) {
+    alert("No Rows");
     return 0;
   }
   grid.removeChild(grid.lastElementChild);
@@ -56,7 +57,24 @@ function removeR() {
 
 // Remove a column
 function removeC() {
-  alert("Clicked Remove Col"); // Replace this line with your code.
+  if (numCols === 0) {
+    alert("No Cols");
+    return 0;
+  }
+
+  for (let i = 0; i < numRows; i++) {
+    if (grid.rows[i].cells.length > 0) {
+      grid.rows[i].deleteCell(-1);
+    }
+  }
+  numCols--;
+
+  if (numCols === 0) {
+    for (i = 0; i < numRows; i++) {
+      grid.removeChild(grid.lastElementChild);
+    }
+    numRows = 0;
+  }
 }
 
 // Set global variable for selected color
