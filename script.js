@@ -2,22 +2,23 @@
 let numRows = 0;
 let numCols = 0;
 let colorSelected;
-let grid = document.getElementById("grid");
 
 // Add a row
 function addR() {
-  let addRow = grid.appendChild(document.createElement("tr"));
-  let addCell = addRow.appendChild(document.createElement("td"));
+  let Row = grid.appendChild(document.createElement("tr"));
+  let addCell = Row.appendChild(document.createElement("td"));
 
-  if (numRows === 0) {
+  if (numRows == 0 && numCols == 0) {
+    const grid = document.getElementById("grid");
     numCols = 0;
     addCell.onclick = myOnClick;
     numRows++;
     numCols++;
   } else {
+    const grid = document.getElementById("grid");
     addCell.onclick = myOnClick;
     for (let i = 1; i < numCols; i++) {
-      addRow.appendChild(document.createElement("td")).onclick = myOnClick;
+      Row.appendChild(document.createElement("td")).onclick = myOnClick;
     }
     numRows++;
   }
@@ -25,7 +26,8 @@ function addR() {
 
 // Add a column
 function addC() {
-  if (numCols === 0 && numRows === 0) {
+  if (numCols == 0 && numRows == 0) {
+    const grid = document.getElementById("grid");
     grid
       .appendChild(document.createElement("tr"))
       .appendChild(document.createElement("td")).onclick = myOnClick;
@@ -43,10 +45,11 @@ function addC() {
 
 // Remove a row
 function removeR() {
-  if (numRows === 0) {
+  if (numRows == 0) {
     alert("No Rows");
-    return 0;
+    return;
   }
+  const grid = document.getElementById("grid");
   grid.removeChild(grid.lastElementChild);
   numRows--;
 
@@ -57,10 +60,11 @@ function removeR() {
 
 // Remove a column
 function removeC() {
-  if (numCols === 0) {
+  if (numCols == 0) {
     alert("No Cols");
-    return 0;
+    return;
   }
+  const grid = document.getElementById("grid");
 
   for (let i = 0; i < numRows; i++) {
     if (grid.rows[i].cells.length > 0) {
@@ -85,15 +89,48 @@ function selectColor() {
 
 // Fill all uncolored cells
 function fillU() {
-  alert("Clicked Fill All Uncolored"); // Replace this line with your code.
+  const grid = document.getElementById("grid");
+  for (let i = 0; i < numRows; i++) {
+    for (let j = 0; j < numCols; j++) {
+      if (
+        grid.querySelectorAll("tr")[i].querySelectorAll("td")[j].style
+          .backgroundColor == "white" ||
+        grid.querySelectorAll("tr")[i].querySelectorAll("td")[j].style
+          .backgroundColor == ""
+      ) {
+        grid.querySelectorAll("tr")[i].querySelectorAll("td")[
+          j
+        ].style.backgroundColor = colorSelected;
+      }
+    }
+  }
 }
 
 // Fill all cells
 function fillAll() {
-  alert("Clicked Fill All"); // Replace this line with your code.
+  const grid = document.getElementById("grid");
+  for (let i = 0; i < numRows; i++) {
+    for (let j = 0; j < numCols; j++) {
+      grid.querySelectorAll("tr")[i].querySelectorAll("td")[
+        j
+      ].style.backgroundColor = colorSelected;
+    }
+  }
 }
 
 // Clear all cells
 function clearAll() {
-  alert("Clicked Clear All"); // Replace this line with your code.
+  const grid = document.getElementById("grid");
+  for (let i = 0; i < numRows; i++) {
+    for (let j = 0; j < numCols; j++) {
+      grid.querySelectorAll("tr")[i].querySelectorAll("td")[
+        j
+      ].style.backgroundColor = "white";
+    }
+  }
+}
+
+// custom function for onlick grid to change color
+function myOnClick() {
+  this.style.backgroundColor = colorSelected;
 }
